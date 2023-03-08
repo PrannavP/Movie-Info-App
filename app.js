@@ -4,25 +4,31 @@ const resultContainer = document.querySelector('.result-container');
 
 // t in this api meanis movie title
 const getMovie = () => {
-    fetch(`https://omdbapi.com/?t=${userSearch.value}&apiKey=${key}`)
-    .then(response => response.json())
-    .then(data => {
-        resultContainer.innerHTML = `
+    let searchValue = userSearch.value;
 
-            <img src=${data.Poster}>
+    if(searchValue.length <= 0){
+        alert('Please enter a movie name');
+    } else{
+        fetch(`https://omdbapi.com/?t=${userSearch.value}&apiKey=${key}`)
+        .then(response => response.json())
+        .then(data => {
+            resultContainer.innerHTML = `
 
-            <p>Title: <span>${data.Title}</span></p>
+                <img src=${data.Poster}>
 
-            <p>Year:<span>${data.Year}</span></p>
+                <p>Title: <span>${data.Title}</span></p>
 
-            <p>Actors: <span>${data.Actors}</span></p>
+                <p>Year:<span>${data.Year}</span></p>
 
-            <p>Genre: <span>${data.Genre}</span></p>
+                <p>Actors: <span>${data.Actors}</span></p>
 
-            <p>Rating: <span>${data.imdbRating}</span></p>
+                <p>Genre: <span>${data.Genre}</span></p>
 
-        `
-    })
+                <p>Rating: <span>${data.imdbRating}</span></p>
+
+            `
+        })
+    };
 };
 
 searchBtn.addEventListener('click', getMovie);
